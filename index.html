@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Student Learning Pattern Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>LearnAI</span>
+            </div>
+            <button class="toggle-btn" id="toggleBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" data-section="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" data-section="analysis">
+                <i class="fas fa-chart-line"></i>
+                <span>Pattern Analysis</span>
+            </a>
+            <a href="#" class="nav-item" data-section="students">
+                <i class="fas fa-users"></i>
+                <span>Students</span>
+            </a>
+            <a href="#" class="nav-item" data-section="predictions">
+                <i class="fas fa-robot"></i>
+                <span>AI Predictions</span>
+            </a>
+            <a href="#" class="nav-item" data-section="reports">
+                <i class="fas fa-file-alt"></i>
+                <span>Reports</span>
+            </a>
+            <a href="#" class="nav-item" data-section="settings">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="avatar">AD</div>
+                <div class="user-details">
+                    <span class="user-name">Admin User</span>
+                    <span class="user-role">Educator</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <h2 id="pageTitle">Dashboard</h2>
+                <p id="pageSubtitle">Welcome back! Here's the learning overview.</p>
+            </div>
+            <div class="topbar-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search students...">
+                </div>
+                <div class="notification-btn">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">3</span>
+                </div>
+                <div class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <section class="section active" id="dashboard">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card blue">
+                    <div class="stat-icon"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <h3>1,248</h3>
+                        <p>Total Students</p>
+                        <span class="trend up"><i class="fas fa-arrow-up"></i> 12% this month</span>
+                    </div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="stat-info">
+                        <h3>87.4%</h3>
+                        <p>Avg. Performance</p>
+                        <span class="trend up"><i class="fas fa-arrow-up"></i> 5.2% this week</span>
+                    </div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info">
+                        <h3>4.6 hrs</h3>
+                        <p>Daily Study Time</p>
+                        <span class="trend down"><i class="fas fa-arrow-down"></i> 0.3 hrs</span>
+                    </div>
+                </div>
+                <div class="stat-card purple">
+                    <div class="stat-icon"><i class="fas fa-brain"></i></div>
+                    <div class="stat-info">
+                        <h3>94.2%</h3>
+                        <p>AI Accuracy</p>
+                        <span class="trend up"><i class="fas fa-arrow-up"></i> 2.1% improved</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div class="chart-card large">
+                    <div class="chart-header">
+                        <h3>Learning Performance Over Time</h3>
+                        <div class="chart-filters">
+                            <button class="filter-btn active" data-filter="week">Week</button>
+                            <button class="filter-btn" data-filter="month">Month</button>
+                            <button class="filter-btn" data-filter="year">Year</button>
+                        </div>
+                    </div>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                <div class="chart-card small">
+                    <div class="chart-header">
+                        <h3>Learning Styles</h3>
+                    </div>
+                    <canvas id="learningStyleChart"></canvas>
+                    <div class="legend">
+                        <div class="legend-item"><span class="dot blue"></span> Visual (35%)</div>
+                        <div class="legend-item"><span class="dot green"></span> Auditory (28%)</div>
+                        <div class="legend-item"><span class="dot orange"></span> Reading (22%)</div>
+                        <div class="legend-item"><span class="dot purple"></span> Kinesthetic (15%)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Second Charts Row -->
+            <div class="charts-row">
+                <div class="chart-card medium">
+                    <div class="chart-header">
+                        <h3>Subject Performance</h3>
+                    </div>
+                    <canvas id="subjectChart"></canvas>
+                </div>
+                <div class="chart-card medium">
+                    <div class="chart-header">
+                        <h3>Study Time Distribution</h3>
+                    </div>
+                    <canvas id="studyTimeChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Activity & Top Students -->
+            <div class="bottom-row">
+                <div class="activity-card">
+                    <div class="card-header">
+                        <h3>Recent Activity</h3>
+                        <a href="#" class="see-all">See All</a>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon blue"><i class="fas fa-book"></i></div>
+                            <div class="activity-info">
+                                <p><strong>Alice Johnson</strong> completed Math Module 5</p>
+                                <span>2 minutes ago</span>
+                            </div>
+                            <div class="activity-score green">98%</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon green"><i class="fas fa-video"></i></div>
+                            <div class="activity-info">
+                                <p><strong>Bob Smith</strong> watched Physics Lecture 3</p>
+                                <span>15 minutes ago</span>
+                            </div>
+                            <div class="activity-score blue">85%</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon orange"><i class="fas fa-pencil-alt"></i></div>
+                            <div class="activity-info">
+                                <p><strong>Carol White</strong> submitted Chemistry Quiz</p>
+                                <span>1 hour ago</span>
+                            </div>
+                            <div class="activity-score orange">72%</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon purple"><i class="fas fa-brain"></i></div>
+                            <div class="activity-info">
+                                <p><strong>David Lee</strong> AI Pattern Analysis Complete</p>
+                                <span>2 hours ago</span>
+                            </div>
+                            <div class="activity-score green">91%</div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon blue"><i class="fas fa-tasks"></i></div>
+                            <div class="activity-info">
+                                <p><strong>Emma Davis</strong> completed Biology Assignment</p>
+                                <span>3 hours ago</span>
+                            </div>
+                            <div class="activity-score blue">88%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="top-students-card">
+                    <div class="card-header">
+                        <h3>Top Performers</h3>
+                        <a href="#" class="see-all">See All</a>
+                    </div>
+                    <div class="student-list">
+                        <div class="student-item">
+                            <span class="rank gold">1</span>
+                            <div class="student-avatar">AJ</div>
+                            <div class="student-info">
+                                <p>Alice Johnson</p>
+                                <span>Mathematics</span>
+                            </div>
+                            <div class="student-score">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width:98%"></div>
+                                </div>
+                                <span>98%</span>
+                            </div>
+                        </div>
+                        <div class="student-item">
+                            <span class="rank silver">2</span>
+                            <div class="student-avatar green">DL</div>
+                            <div class="student-info">
+                                <p>David Lee</p>
+                                <span>Physics</span>
+                            </div>
+                            <div class="student-score">
+                                <div class="score-bar">
+                                    <div class="score-fill green" style="width:95%"></div>
+                                </div>
+                                <span>95%</span>
+                            </div>
+                        </div>
+                        <div class="student-item">
+                            <span class="rank bronze">3</span>
+                            <div class="student-avatar orange">ED</div>
+                            <div class="student-info">
+                                <p>Emma Davis</p>
+                                <span>Biology</span>
+                            </div>
+                            <div class="student-score">
+                                <div class="score-bar">
+                                    <div class="score-fill orange" style="width:92%"></div>
+                                </div>
+                                <span>92%</span>
+                            </div>
+                        </div>
+                        <div class="student-item">
+                            <span class="rank">4</span>
+                            <div class="student-avatar purple">BS</div>
+                            <div class="student-info">
+                                <p>Bob Smith</p>
+                                <span>Chemistry</span>
+                            </div>
+                            <div class="student-score">
+                                <div class="score-bar">
+                                    <div class="score-fill purple" style="width:89%"></div>
+                                </div>
+                                <span>89%</span>
+                            </div>
+                        </div>
+                        <div class="student-item">
+                            <span class="rank">5</span>
+                            <div class="student-avatar">CW</div>
+                            <div class="student-info">
+                                <p>Carol White</p>
+                                <span>Computer Sci</span>
+                            </div>
+                            <div class="student-score">
+                                <div class="score-bar">
+                                    <div class="score-fill" style="width:86%"></div>
+                                </div>
+                                <span>86%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pattern Analysis Section -->
+        <section class="section" id="analysis">
+            <div class="analysis-header">
+                <h2>Deep Learning Pattern Analysis</h2>
+                <p>AI-powered insights into student learning behaviors and patterns</p>
+            </div>
+
+            <div class="model-status-card">
+                <div class="model-info">
+                    <div class="model-icon"><i class="fas fa-network-wired"></i></div>
+                    <div>
+                        <h3>Deep Learning Model Status</h3>
+                        <p>LSTM Neural Network + CNN Hybrid Model</p>
+                    </div>
+                </div>
+                <div class="model-stats">
+                    <div class="model-stat">
+                        <span class="label">Model Accuracy</span>
+                        <span class="value green">94.2%</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="label">Training Data</span>
+                        <span class="value">125,000 records</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="label">Last Trained</span>
+                        <span class="value">2 hrs ago</span>
+                    </div>
+                    <div class="model-stat">
+                        <span class="label">Status</span>
+                        <span class="value green"><i class="fas fa-circle"></i> Active</span>
+                    </div>
+                </div>
+                <button class="retrain-btn" id="retrainBtn">
+                    <i class="fas fa-sync-alt"></i> Retrain Model
+                </button>
+            </div>
+
+            <!-- Training Progress (hidden by default) -->
+            <div class="training-card" id="trainingCard" style="display:none">
+                <h3><i class="fas fa-cog fa-spin"></i> Model Training in Progress...</h3>
+                <div class="training-steps">
+                    <div class="step" id="step1">
+                        <i class="fas fa-circle"></i>
+                        <span>Loading Training Data</span>
+                        <span class="step-status" id="status1">Pending</span>
+                    </div>
+                    <div class="step" id="step2">
+                        <i class="fas fa-circle"></i>
+                        <span>Preprocessing & Normalization</span>
+                        <span class="step-status" id="status2">Pending</span>
+                    </div>
+                    <div class="step" id="step3">
+                        <i class="fas fa-circle"></i>
+                        <span>Training LSTM Layers</span>
+                        <span class="step-status" id="status3">Pending</span>
+                    </div>
+                    <div class="step" id="step4">
+                        <i class="fas fa-circle"></i>
+                        <span>Training CNN Layers</span>
+                        <span class="step-status" id="status4">Pending</span>
+                    </div>
+                    <div class="step" id="step5">
+                        <i class="fas fa-circle"></i>
+                        <span>Model Validation</span>
+                        <span class="step-status" id="status5">Pending</span>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="trainingProgress"></div>
+                </div>
+                <p class="progress-text" id="progressText">0% Complete</p>
+            </div>
+
+            <div class="patterns-grid">
+                <div class="pattern-card">
+                    <div class="pattern-icon blue"><i class="fas fa-moon"></i></div>
+                    <h3>Peak Learning Hours</h3>
+                    <p>Most students perform best between <strong>8-10 AM</strong> and <strong>7-9 PM</strong></p>
+                    <div class="time-bars">
+                        <div class="time-slot">
+                            <span>6AM</span>
+                            <div class="bar" style="height:30%"></div>
+                        </div>
+                        <div class="time-slot">
+                            <span>8AM</span>
+                            <div class="bar high" style="height:90%"></div>
+                        </div>
+                        <div class="time-slot">
+                            <span>10AM</span>
+                            <div class="bar" style="height:70%"></div>
+                        </div>
+                        <div class="time-slot">
+                            <span>12PM</span>
+                            <div class="bar" style="height:45%"></div>
+                        </div>
+                        <div class="time-slot">
+                            <span>2PM</span>
+                            <div class="bar" style="height:55%"></div>
+                        </div>
+                        <div class="time-slot">
+                            <span>4PM</span>
+                            <div class="bar" style="height:50%"></div>
+                        </div>
+                        <div class="time-slot">
+                            <span>7PM</span>
+                            <div class="bar high" style="height:85%"></div>
+                        </div>
+                        <div class="time-slot">
+                            <span>9PM</span>
+                            <div class="bar" style="height:60%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pattern-card">
+                    <div class="pattern-icon green"><i class="fas fa-redo"></i></div>
+                    <h3>Retention Patterns</h3>
+                    <p>Average knowledge retention based on spaced repetition analysis</p>
+                    <div class="retention-info">
+                        <div class="retention-item">
+                            <span class="day">Day 1</span>
+                            <div class="retention-bar">
+                                <div class="retention-fill" style="width:100%">100%</div>
+                            </div>
+                        </div>
+                        <div class="retention-item">
+                            <span class="day">Day 3</span>
+                            <div class="retention-bar">
+                                <div class="retention-fill" style="width:58%">58%</div>
+                            </div>
+                        </div>
+                        <div class="retention-item">
+                            <span class="day">Day 7</span>
+                            <div class="retention-bar">
+                                <div class="retention-fill orange" style="width:35%">35%</div>
+                            </div>
+                        </div>
+                        <div class="retention-item">
+                            <span class="day">Day 14</span>
+                            <div class="retention-bar">
+                                <div class="retention-fill red" style="width:18%">18%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pattern-card">
+                    <div class="pattern-icon orange"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>Risk Indicators</h3>
+                    <p>Students identified as at-risk by deep learning model</p>
+                    <div class="risk-stats">
+                        <div class="risk-item high">
+                            <span class="risk-label">High Risk</span>
+                            <span class="risk-count">23</span>
+                            <span class="risk-badge red">Immediate Action</span>
+                        </div>
+                        <div class="risk-item medium">
+                            <span class="risk-label">Medium Risk</span>
+                            <span class="risk-count">67</span>
+                            <span class="risk-badge orange">Monitor</span>
+                        </div>
+                        <div class="risk-item low">
+                            <span class="risk-label">Low Risk</span>
+                            <span class="risk-count">158</span>
+                            <span class="risk-badge green">On Track</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pattern-card">
+                    <div class="pattern-icon purple"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Learning Efficiency</h3>
+                    <p>AI-calculated efficiency score based on time vs. output ratio</p>
+                    <div class="efficiency-gauge">
+                        <div class="gauge-circle">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="#e2e8f0" stroke-width="10"/>
+                                <circle cx="50" cy="50" r="40" fill="none" stroke="#8b5cf6" stroke-width="10"
+                                    stroke-dasharray="220 251" stroke-linecap="round"
+                                    transform="rotate(-90 50 50)"/>
+                            </svg>
+                            <div class="gauge-value">87%</div>
+                        </div>
+                        <div class="efficiency-details">
+                            <div class="eff-item">
+                                <span>Time on Task</span>
+                                <span class="green">92%</span>
+                            </div>
+                            <div class="eff-item">
+                                <span>Content Mastery</span>
+                                <span class="blue">85%</span>
+                            </div>
+                            <div class="eff-item">
+                                <span>Engagement</span>
+                                <span class="orange">83%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Neural Network Visualization -->
+            <div class="nn-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-project-diagram"></i> Neural Network Architecture Visualization</h3>
+                </div>
+                <div class="nn-visualization">
+                    <div class="nn-layer">
+                        <h4>Input Layer</h4>
+                        <div class="nodes">
+                            <div class="node" title="Study Time">ST</div>
+                            <div class="node" title="Quiz Scores">QS</div>
+                            <div class="node" title="Engagement">EG</div>
+                            <div class="node" title="Attendance">AT</div>
+                            <div class="node" title="Assignments">AS</div>
+                            <div class="node" title="Interaction">IN</div>
+                        </div>
+                        <p>6 Features</p>
+                    </div>
+                    <div class="nn-arrows"><i class="fas fa-chevron-right"></i></div>
+                    <div class="nn-layer">
+                        <h4>LSTM Layer 1</h4>
+                        <div class="nodes">
+                            <div class="node lstm">L1</div>
+                            <div class="node lstm">L2</div>
+                            <div class="node lstm">L3</div>
+                            <div class="node lstm">L4</div>
+                            <div class="node lstm">L5</div>
+                            <div class="node lstm">L6</div>
+                            <div class="node lstm">L7</div>
+                            <div class="node lstm">L8</div>
+                        </div>
+                        <p>128 Units</p>
+                    </div>
+                    <div class="nn-arrows"><i class="fas fa-chevron-right"></i></div>
+                    <div class="nn-layer">
+                        <h4>LSTM Layer 2</h4>
+                        <div class="nodes">
+                            <div class="node lstm">L1</div>
+                            <div class="node lstm">L2</div>
+                            <div class="node lstm">L3</div>
+                            <div class="node lstm">L4</div>
+                            <div class="node lstm">L5</div>
+                            <div class="node lstm">L6</div>
+                        </div>
+                        <p>64 Units</p>
+                    </div>
+                    <div class="nn-arrows"><i class="fas fa-chevron-right"></i></div>
+                    <div class="nn-layer">
+                        <h4>Dense Layer</h4>
+                        <div class="nodes">
+                            <div class="node dense">D1</div>
+                            <div class="node dense">D2</div>
+                            <div class="node dense">D3</div>
+                            <div class="node dense">D4</div>
+                        </div>
+                        <p>32 Units</p>
+                    </div>
+                    <div class="nn-arrows"><i class="fas fa-chevron-right"></i></div>
+                    <div class="nn-layer">
+                        <h4>Output Layer</h4>
+                        <div class="nodes">
+                            <div class="node output">OP</div>
+                        </div>
+                        <p>Prediction</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Students Section -->
+        <section class="section" id="students">
+            <div class="section-header">
+                <h2>Student Management</h2>
+                <button class="add-btn" id="addStudentBtn">
+                    <i class="fas fa-plus"></i> Add Student
+                </button>
+            </div>
+
+            <div class="filter-bar">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search students..." id="studentSearch">
+                </div>
+                <select class="filter-select" id="subjectFilter">
+                    <option value="">All Subjects</option>
+                    <option value="math">Mathematics</option>
+                    <option value="physics">Physics</option>
+                    <option value="chemistry">Chemistry</option>
+                    <option value="biology">Biology</option>
+                    <option value="cs">Computer Science</option>
+                </select>
+                <select class="filter-select" id="riskFilter">
+                    <option value="">All Risk Levels</option>
+                    <option value="low">Low Risk</option>
+                    <option value="medium">Medium Risk</option>
+                    <option value="high">High Risk</option>
+                </select>
+            </div>
+
+            <div class="table-card">
+                <table class="students-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Subject</th>
+                            <th>Score</th>
+                            <th>Study Hours</th>
+                            <th>Learning Style</th>
+                            <th>Risk Level</th>
+                            <th>AI Prediction</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn" id="prevPage"><i class="fas fa-chevron-left"></i></button>
+                <span id="pageInfo">Page 1 of 3</span>
+                <button class="page-btn" id="nextPage"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <!-- AI Predictions Section -->
+        <section class="section" id="predictions">
+            <div class="section-header">
+                <h2>AI Predictions & Recommendations</h2>
+                <p>Deep learning model predictions for student outcomes</p>
+            </div>
+
+            <div class="prediction-input-card">
+                <h3><i class="fas fa-robot"></i> Run Prediction for a Student</h3>
+                <div class="prediction-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Study Hours per Day</label>
+                            <input type="range" min="0" max="12" value="5" id="studyHours" class="range-input">
+                            <span class="range-value" id="studyHoursVal">5 hrs</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Quiz Score Average</label>
+                            <input type="range" min="0" max="100" value="75" id="quizScore" class="range-input">
+                            <span class="range-value" id="quizScoreVal">75%</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Attendance Rate</label>
+                            <input type="range" min="0" max="100" value="85" id="attendance" class="range-input">
+                            <span class="range-value" id="attendanceVal">85%</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Engagement Score</label>
+                            <input type="range" min="0" max="100" value="70" id="engagement" class="range-input">
+                            <span class="range-value" id="engagementVal">70%</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Assignment Completion</label>
+                            <input type="range" min="0" max="100" value="90" id="assignments" class="range-input">
+                            <span class="range-value" id="assignmentsVal">90%</span>
+                        </div>
+                        <div class="form-group">
+                            <label>Learning Style</label>
+                            <select class="form-select" id="learningStyleSelect">
+                                <option>Visual</option>
+                                <option>Auditory</option>
+                                <option>Reading/Writing</option>
+                                <option>Kinesthetic</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="predict-btn" id="predictBtn">
+                        <i class="fas fa-magic"></i> Run AI Prediction
+                    </button>
+                </div>
+            </div>
+
+            <div class="prediction-result" id="predictionResult" style="display:none">
+                <div class="result-header">
+                    <h3><i class="fas fa-check-circle"></i> Prediction Results</h3>
+                </div>
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h4>Predicted Final Score</h4>
+                        <div class="big-score" id="predictedScore">--</div>
+                        <p>Based on current patterns</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>Success Probability</h4>
+                        <div class="big-score green" id="successProb">--</div>
+                        <p>Likelihood of passing</p>
+                    </div>
+                    <div class="result-card">
+                        <h4>Risk Classification</h4>
+                        <div class="risk-tag" id="riskTag">--</div>
+                        <p>AI-determined risk level</p>
+                    </div>
+                </div>
+                <div class="recommendations" id="recommendations">
+                    <h4><i class="fas fa-lightbulb"></i> AI Recommendations</h4>
+                    <ul id="recList"></ul>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-card large">
+                    <div class="chart-header">
+                        <h3>Prediction Accuracy Over Time</h3>
+                    </div>
+                    <canvas id="accuracyChart"></canvas>
+                </div>
+                <div class="chart-card small">
+                    <div class="chart-header">
+                        <h3>Outcome Distribution</h3>
+                    </div>
+                    <canvas id="outcomeChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section class="section" id="reports">
+            <div class="section-header">
+                <h2>Reports & Analytics</h2>
+                <button class="add-btn">
+                    <i class="fas fa-download"></i> Export Report
+                </button>
+            </div>
+
+            <div class="reports-grid">
+                <div class="report-card">
+                    <div class="report-icon blue"><i class="fas fa-chart-bar"></i></div>
+                    <div class="report-info">
+                        <h3>Monthly Performance Report</h3>
+                        <p>Comprehensive analysis of student performance</p>
+                        <span class="report-date">Generated: Jan 2025</span>
+                    </div>
+                    <button class="download-btn"><i class="fas fa-download"></i></button>
+                </div>
+                <div class="report-card">
+                    <div class="report-icon green"><i class="fas fa-brain"></i></div>
+                    <div class="report-info">
+                        <h3>AI Pattern Analysis Report</h3>
+                        <p>Deep learning insights and pattern discoveries</p>
+                        <span class="report-date">Generated: Jan 2025</span>
+                    </div>
+                    <button class="download-btn"><i class="fas fa-download"></i></button>
+                </div>
+                <div class="report-card">
+                    <div class="report-icon orange"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="report-info">
+                        <h3>At-Risk Students Report</h3>
+                        <p>Identified at-risk students with intervention plans</p>
+                        <span class="report-date">Generated: Jan 2025</span>
+                    </div>
+                    <button class="download-btn"><i class="fas fa-download"></i></button>
+                </div>
+                <div class="report-card">
+                    <div class="report-icon purple"><i class="fas fa-graduation-cap"></i></div>
+                    <div class="report-info">
+                        <h3>Learning Style Analysis</h3>
+                        <p>Classification of student learning preferences</p>
+                        <span class="report-date">Generated: Jan 2025</span>
+                    </div>
+                    <button class="download-btn"><i class="fas fa-download"></i></button>
+                </div>
+            </div>
+
+            <div class="charts-row">
+                <div class="chart-card large">
+                    <div class="chart-header">
+                        <h3>Class Performance Comparison</h3>
+                    </div>
+                    <canvas id="classCompChart"></canvas>
+                </div>
+                <div class="chart-card small">
+                    <div class="chart-header">
+                        <h3>Grade Distribution</h3>
+                    </div>
+                    <canvas id="gradeDistChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="section" id="settings">
+            <div class="section-header">
+                <h2>Settings</h2>
+            </div>
+
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <h3><i class="fas fa-brain"></i> AI Model Settings</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Auto Retrain Model</p>
+                            <span>Automatically retrain every 24 hours</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Real-time Predictions</p>
+                            <span>Enable live prediction updates</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Risk Alert Notifications</p>
+                            <span>Get notified when student risk changes</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Model Accuracy Threshold</p>
+                            <span>Minimum accuracy before alert</span>
+                        </div>
+                        <select class="form-select">
+                            <option>85%</option>
+                            <option selected>90%</option>
+                            <option>95%</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3><i class="fas fa-bell"></i> Notifications</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Email Notifications</p>
+                            <span>Send daily summary emails</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Student Performance Alerts</p>
+                            <span>Alert when score drops below 60%</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Weekly Reports</p>
+                            <span>Auto-generate weekly reports</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3><i class="fas fa-palette"></i> Display Settings</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Dark Mode</p>
+                            <span>Switch to dark theme</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="darkModeToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Compact View</p>
+                            <span>Show more data in less space</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Animation Effects</p>
+                            <span>Enable smooth animations</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h3><i class="fas fa-database"></i> Data Management</h3>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Data Retention Period</p>
+                            <span>How long to keep student data</span>
+                        </div>
+                        <select class="form-select">
+                            <option>1 Year</option>
+                            <option selected>2 Years</option>
+                            <option>5 Years</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <p>Auto Backup</p>
+                            <span>Backup data every 6 hours</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <button class="danger-btn">
+                        <i class="fas fa-trash"></i> Clear All Data
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Student Modal -->
+    <div class="modal" id="studentModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Student</h3>
+                <button class="close-btn" id="closeModal"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-input" placeholder="Enter student name">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select class="form-select">
+                            <option>Mathematics</option>
+                            <option>Physics</option>
+                            <option>Chemistry</option>
+                            <option>Biology</option>
+                            <option>Computer Science</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Learning Style</label>
+                        <select class="form-select">
+                            <option>Visual</option>
+                            <option>Auditory</option>
+                            <option>Reading/Writing</option>
+                            <option>Kinesthetic</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Study Hours/Day</label>
+                        <input type="number" class="form-input" placeholder="0-12">
+                    </div>
+                    <div class="form-group">
+                        <label>Current Score</label>
+                        <input type="number" class="form-input" placeholder="0-100">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="cancelModal">Cancel</button>
+                <button class="save-btn">Save Student</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
